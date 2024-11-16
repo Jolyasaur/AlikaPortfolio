@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyeAlika - TRIZIE PH</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 0.5rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .divider {
+            height: 24px;
+            width: 1.5px;
+            background: linear-gradient(to bottom, #FF69B4, #8A2BE2);
+            opacity: 0.3;
+            margin: 0 0.5rem;
+        }
+
+        .brand {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #666;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(138, 43, 226, 0.1));
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .nav-link:hover {
+            color: #8A2BE2;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .contact-nav-btn {
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(138, 43, 226, 0.2);
+        }
+
+        .contact-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        /* Add smooth transition for header on scroll */
+        .header {
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 0.3rem 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Add responsive styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+            }
+
+            .contact-nav-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .brand {
+                display: none;
+            }
+
+            .divider {
+                display: none;
+            }
+        }
+
+        main {
+            padding-top: 55px;
+        }
+
+        section {
+            padding: 5rem 10%;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin-top: -55px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleFade 1s ease-in;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: subtitleFade 1s ease-in 0.5s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            opacity: 0;
+            animation: buttonsFade 1s ease-in 1s forwards;
+        }
+
+        .primary-btn, .secondary-btn {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-btn {
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            color: white;
+            border: none;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        .secondary-btn:hover {
+            background: white;
+            color: #8a2be2;
+            transform: translateY(-3px);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .about p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .featured-products {
+            padding: 2rem 5%;
+            background-color: #f9f9f9;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            font-size: 1rem;
+            margin: 1rem 1rem 0.5rem;
+        }
+
+        .product-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 1rem 1rem;
+            flex-grow: 1;
+        }
+
+        .product-info p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ff6b6b;
+            margin: 0;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .view-button {
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .view-button:hover {
+            background-color: #ff5252;
+        }
+
+        .add-to-cart-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .add-to-cart-button:hover {
+            transform: scale(1.1);
+        }
+
+        .add-to-cart-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #ff6b6b;
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .buy-button {
+            display: block;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 0.8rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #ff6b6b;
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact input,
+        .contact textarea {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .contact textarea {
+            height: 150px;
+        }
+
+        .contact button {
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact button:hover {
+            background-color: #ff5252;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .seller {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            background-color: #fff;
+            padding: 2.75rem 10%;
+        }
+
+        .seller-image {
+            flex: 1;
+            max-width: 50%;
+        }
+
+        .seller-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .seller-description {
+            flex: 1;
+        }
+
+        .seller-description h2 {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+
+        .seller-description p {
+            margin-bottom: 1rem;
+        }
+
+        .seller-description .cta-button {
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .video-showcase {
+            background-color: #f0f0f0;
+            padding: 5rem 10%;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .video-item {
+            flex: 1;
+            min-width: 250px;
+            max-width: 100%;
+        }
+
+        .video-item video {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .video-container {
+                flex-direction: column;
+            }
+
+            .video-item {
+                max-width: 100%;
+            }
+        }
+
+        .contact-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        .contact-popup.show {
+            display: block;
+        }
+
+        .product-popup {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+        }
+
+        .product-popup.active {
+            display: flex;
+        }
+
+        .booking-popup {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+        }
+
+        .booking-popup.show {
+            display: flex;
+        }
+
+        .contact-popup p {
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+        }
+
+        #contactNumber,
+        #contactEmail {
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-right: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-label {
+            white-space: nowrap;
+            margin-right: 5px;
+            font-size: 0.85rem;
+        }
+
+        .copy-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 3px;
+            transition: transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .copy-button:hover {
+            transform: scale(1.1);
+        }
+
+        .copy-button svg {
+            width: 14px;
+            height: 14px;
+            fill: #666;
+        }
+
+        .contact-social {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.1);
+        }
+
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #333;
+        }
+
+        .contact-social .cta-button {
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1.5rem;
+            margin-top: 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .divider {
+            width: 1px;
+            height: 20px;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            margin: 0 0.5rem;
+        }
+
+        .brand {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-fill-color: transparent;
+        }
+
+        .product-popup {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-popup-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .product-popup.active .product-popup-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .close-popup {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-popup:hover,
+        .close-popup:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #popupImage {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        #popupTitle {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #popupPrice {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        #popupDescription {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .services {
+            background-color: #f9f9f9;
+            padding: 5rem 10%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            right: -50px;
+            bottom: -50px;
+            background: linear-gradient(45deg, rgba(255, 182, 193, 0.1), rgba(255, 228, 225, 0.1));
+            transform: rotate(-3deg);
+            z-index: 0;
+        }
+
+        .services h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #333;
+            position: relative;
+            z-index: 1;
+        }
+
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            flex: 1 1 250px;
+            max-width: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 182, 193, 0.1), rgba(255, 228, 225, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            background: linear-gradient(45deg, #FFB6C1, #FFF0F5);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .book-now-btn {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: bottom 0.3s ease, background-color 0.3s ease;
+        }
+
+        .service-card:hover .book-now-btn {
+            bottom: 20px;
+        }
+
+        .book-now-btn:hover {
+            background-color: #ff5252;
+        }
+
+        .booking-popup {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .booking-popup-content {
+            background-color: #fefefe;
+            padding: 30px;
+            border: none;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .booking-popup-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .contact-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .contact-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #ff6b6b;
+        }
+
+        .contact-option p {
+            flex-grow: 1;
+            margin: 0;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .contact-btn {
+            margin-left: 10px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .contact-btn:hover {
+            background-color: #ff5252;
+        }
+
+        .app-container {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+
+        #root {
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .header {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .logo-text {
+            position: relative;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-underline {
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: right;
+        }
+
+        .logo:hover .logo-underline {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .contact-nav-btn {
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        /* Seller Section Styles */
+        .seller-content {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .seller-image-wrapper {
+            position: relative;
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .seller-image-wrapper:hover {
+            transform: translateY(-10px);
+        }
+
+        .seller-image {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .seller-image-wrapper:hover .seller-image {
+            transform: scale(1.05);
+        }
+
+        .seller-description {
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .seller-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .seller-social {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Social Icons Styles */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px) rotate(8deg);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Animations */
+        @keyframes titleFade {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes subtitleFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes buttonsFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(to right, #1a1a1a, #2d2d2d);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff69b4, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+            padding: 0.5rem 0;
+        }
+
+        .footer-links a:hover {
+            color: #ff69b4;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .close-popup:hover {
+            color: #ff69b4;
+        }
+
+        .contact-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Product Section Styles */
+        .products-section {
+            padding: 5rem 10%;
+            background: linear-gradient(to bottom, #fff, #f9f9f9);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .view-details {
+            background: white;
+            color: #333;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .view-details {
+            transform: translateY(0);
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-content h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .price {
+            color: #ff69b4;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-details-popup {
+            max-width: 900px;
+            padding: 0;
+            overflow: hidden;
+            background: white;
+            border-radius: 20px;
+        }
+
+        .product-details {
+            display: flex;
+            gap: 2rem;
+            max-height: 80vh;
+        }
+
+        .product-details-image {
+            flex: 1;
+            max-width: 400px;
+            overflow: hidden;
+        }
+
+        .product-details-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details-content {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+        }
+
+        .product-details-content h3 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-details-content .price {
+            font-size: 1.5rem;
+            color: #ff69b4;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-details-content .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .product-actions .primary-btn,
+        .product-actions .secondary-btn {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .product-actions .primary-btn {
+            background: linear-gradient(135deg, #ff69b4, #8a2be2);
+            color: white;
+            border: none;
+        }
+
+        .product-actions .secondary-btn {
+            background: transparent;
+            color: #8a2be2;
+            border: 2px solid #8a2be2;
+        }
+
+        .product-actions .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .product-actions .secondary-btn:hover {
+            background: rgba(138, 43, 226, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .product-details {
+                flex-direction: column;
+            }
+
+            .product-details-image {
+                max-width: 100%;
+                height: 300px;
+            }
+
+            .product-details-content {
+                padding: 1.5rem;
+            }
+
+            .product-details-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+
+        .content-section {
+            padding: 5rem 10%;
+            background: linear-gradient(to bottom, #f9f9f9, #fff);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            background: #000;
+            overflow: hidden;
+        }
+
+        /* Portrait video styling */
+        .video-wrapper.portrait {
+            padding-top: 177.78%; /* 16:9 inverted for portrait (9:16) */
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-info {
+            padding: 1.5rem;
+        }
+
+        .content-info h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ff69b4, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content-info p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Custom video controls styling */
+        video::-webkit-media-controls-panel {
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+        }
+
+        video::-webkit-media-controls-play-button {
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 50%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Loading state */
+        .video-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: #ff69b4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Hover effect for videos */
+        .video-wrapper:hover video {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Social Media Icons Components
+        function FacebookIcon() {
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                </svg>
+            );
+        }
+
+        function InstagramIcon() {
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.947-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+            );
+        }
+
+        function TiktokIcon() {
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                </svg>
+            );
+        }
+
+        // Social Icon Component
+        function SocialIcon({ href, icon }) {
+            return (
+                <a href={href} target="_blank" rel="noopener noreferrer" className="social-icon">
+                    {icon === 'facebook' && <FacebookIcon />}
+                    {icon === 'instagram' && <InstagramIcon />}
+                    {icon === 'tiktok' && <TiktokIcon />}
+                </a>
+            );
+        }
+
+        // Product Card Component
+        function ProductCard({ product, onViewDetails }) {
+            return (
+                <div className="product-card">
+                    <div className="product-image">
+                        <img src={product.image} alt={product.title} />
+                        <div className="product-overlay">
+                            <button 
+                                className="view-details"
+                                onClick={() => onViewDetails(product)}
+                            >
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                    <div className="product-content">
+                        <h3>{product.title}</h3>
+                        <p className="price">{product.price}</p>
+                    </div>
+                </div>
+            );
+        }
+
+        // Contact Popup Component
+        function ContactPopup({ show, onClose }) {
+            if (!show) return null;
+            
+            return (
+                <div className="popup-overlay">
+                    <div className="popup-content">
+                        <button className="close-popup" onClick={onClose}>&times;</button>
+                        <h3>Contact Alika</h3>
+                        <div className="contact-options">
+                            <div className="contact-option">
+                                <div className="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+                                    </svg>
+                                </div>
+                                <p>WhatsApp</p>
+                                <a href="https://wa.me/yourphonenumber" className="contact-btn">Chat Now</a>
+                            </div>
+                            <div className="contact-option">
+                                <div className="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
+                                    </svg>
+                                </div>
+                                <p>Messenger</p>
+                                <a href="https://m.me/yourusername" className="contact-btn">Message</a>
+                            </div>
+                            <div className="contact-option">
+                                <div className="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                    </svg>
+                                </div>
+                                <p>Email</p>
+                                <a href="mailto:your@email.com" className="contact-btn">Send Email</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Product Details Popup Component
+        function ProductDetailsPopup({ product, onClose }) {
+            if (!product) return null;
+
+            return (
+                <div className="popup-overlay">
+                    <div className="popup-content product-details-popup">
+                        <button className="close-popup" onClick={onClose}>&times;</button>
+                        <div className="product-details">
+                            <div className="product-details-image">
+                                <img src={product.image} alt={product.title} />
+                            </div>
+                            <div className="product-details-content">
+                                <h3>{product.title}</h3>
+                                <p className="price">{product.price}</p>
+                                <p className="description">{product.description}</p>
+                                <div className="product-actions">
+                                    <button 
+                                        className="primary-btn"
+                                        onClick={() => window.open('https://wa.me/yourphonenumber', '_blank')}
+                                    >
+                                        Order Now
+                                    </button>
+                                    <button 
+                                        className="secondary-btn"
+                                        onClick={() => window.open('https://m.me/yourusername', '_blank')}
+                                    >
+                                        Ask Questions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Product Section Component
+        function ProductSection() {
+            const [selectedProduct, setSelectedProduct] = React.useState(null);
+            
+            const products = [
+                {
+                    id: 1,
+                    title: "Clean Fiber",
+                    price: "From ₱695.00",
+                    image: "img/cleanfiber.png",
+                    description: "Clean Fiber is a revolutionary dietary supplement designed to support digestive health and maintain regular bowel movements. Made with natural ingredients, it helps promote a healthy gut while being gentle on your system. Perfect for those looking to improve their daily fiber intake in a convenient and effective way."
+                },
+                {
+                    id: 2,
+                    title: "Grape Fiber",
+                    price: "From ₱695.00",
+                    image: "img/grapefiber.jpg",
+                    description: "Grape Fiber combines the goodness of dietary fiber with the delicious taste of grapes. This unique formula not only supports digestive health but also provides antioxidants from grape extracts. Enjoy the benefits of fiber supplementation with a pleasant grape flavor that makes your daily routine more enjoyable."
+                },
+                {
+                    id: 3,
+                    title: "TRIZIE Peachy Fiber",
+                    price: "₱595.00",
+                    image: "img/peachyfiber.jpg",
+                    description: "TRIZIE Peachy Fiber offers a delightful peach-flavored approach to fiber supplementation. This specially formulated product helps maintain digestive regularity while being a treat for your taste buds. The perfect choice for those who want their daily fiber supplement to be both effective and enjoyable."
+                }
+            ];
+
+            return (
+                <section id="products" className="products-section">
+                    <h2 className="section-title">Our Products</h2>
+                    <div className="product-grid">
+                        {products.map(product => (
+                            <ProductCard 
+                                key={product.id} 
+                                product={product}
+                                onViewDetails={setSelectedProduct}
+                            />
+                        ))}
+                    </div>
+                    <ProductDetailsPopup 
+                        product={selectedProduct}
+                        onClose={() => setSelectedProduct(null)}
+                    />
+                </section>
+            );
+        }
+
+        // Update the ContentSection component
+        function ContentSection() {
+            const contents = [
+                {
+                    id: 1,
+                    video: "vid/vid.mp4"
+                },
+                {
+                    id: 2,
+                    video: "vid/vid2.mp4"
+                },
+                {
+                    id: 3,
+                    video: "vid/vid3.mp4"
+                }
+            ];
+
+            return (
+                <section id="contents" className="content-section">
+                    <h2 className="section-title">My Contents</h2>
+                    <div className="content-grid">
+                        {contents.map(content => (
+                            <div key={content.id} className="content-card">
+                                <div className="video-wrapper portrait">
+                                    <video 
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        preload="metadata"
+                                    >
+                                        <source src={content.video} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                                <div className="content-info">
+                                    <h3>{content.title}</h3>
+                                    <p>{content.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            );
+        }
+
+        // Main App Component
+        function App() {
+            const [showContactPopup, setShowContactPopup] = React.useState(false);
+            const [isScrolled, setIsScrolled] = React.useState(false);
+
+            React.useEffect(() => {
+                const handleScroll = () => {
+                    setIsScrolled(window.scrollY > 50);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <div className="app-container">
+                    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+                        <nav>
+                            <div className="logo-container">
+                                <div className="logo">
+                                    <span className="logo-text">AyeAlika</span>
+                                    <div className="logo-underline"></div>
+                                </div>
+                                <div className="divider"></div>
+                                <div className="brand">TRIZIE PH</div>
+                            </div>
+                            <ul className="nav-links">
+                                <li><a href="#home" className="nav-link">Home</a></li>
+                                <li><a href="#about" className="nav-link">About</a></li>
+                                <li><a href="#products" className="nav-link">Products</a></li>
+                                <li><a href="#services" className="nav-link">Services</a></li>
+                                <li>
+                                    <button 
+                                        className="contact-nav-btn"
+                                        onClick={() => setShowContactPopup(true)}
+                                    >
+                                        Contact
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </header>
+
+                    <main>
+                        <section id="hero" className="hero">
+                            <div className="hero-content">
+                                <h1 className="hero-title">Welcome to AyeAlika</h1>
+                                <p className="hero-subtitle">Your Trusted TRIZIE PH Brand Ambassador</p>
+                                <div className="hero-buttons">
+                                    <button className="primary-btn" onClick={() => setShowContactPopup(true)}>
+                                        Get in Touch
+                                    </button>
+                                    <a href="#products" className="secondary-btn">
+                                        View Products
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+
+                        <ContentSection />
+
+                        <ProductSection />
+
+                        <section id="seller" className="seller">
+                            <div className="seller-content">
+                                <div className="seller-image-wrapper">
+                                    <img src="img/alex.jpg" alt="Alika - Brand Affiliate" className="seller-image" />
+                                </div>
+                                <div className="seller-description">
+                                    <h2 className="section-title">Brand Ambassador Alika</h2>
+                                    <p className="seller-text">
+                                        Alika is a passionate brand affiliate for TRIZIE PH, specializing in lifestyle and wellness products. With her keen eye for quality and commitment to holistic well-being, Alika creates engaging product content that resonates with health-conscious individuals.
+                                    </p>
+                                    <div className="seller-social">
+                                        <button className="contact-btn pulse" onClick={() => setShowContactPopup(true)}>
+                                            Contact Alika
+                                        </button>
+                                        <div className="social-links">
+                                            <SocialIcon href="https://facebook.com" icon="facebook" />
+                                            <SocialIcon href="https://instagram.com" icon="instagram" />
+                                            <SocialIcon href="https://tiktok.com" icon="tiktok" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+
+                    <ContactPopup 
+                        show={showContactPopup} 
+                        onClose={() => setShowContactPopup(false)} 
+                    />
+
+                    <footer className="footer">
+                        <div className="footer-content">
+                            <div className="footer-brand">
+                                <h3>AyeAlika</h3>
+                                <p>Your Wellness Journey Starts Here</p>
+                            </div>
+                            <div className="footer-links">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="#home">Home</a></li>
+                                    <li><a href="#about">About</a></li>
+                                    <li><a href="#products">Products</a></li>
+                                    <li><a href="#services">Services</a></li>
+                                </ul>
+                            </div>
+                            <div className="footer-social">
+                                <h4>Connect With Us</h4>
+                                <div className="social-icons">
+                                    <SocialIcon href="https://facebook.com" icon="facebook" />
+                                    <SocialIcon href="https://instagram.com" icon="instagram" />
+                                    <SocialIcon href="https://tiktok.com" icon="tiktok" />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="footer-bottom">
+                            <p>&copy; 2024 AyeAlika. All rights reserved.</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+    </script>
+
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
