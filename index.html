@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AyeAlika - TRIZIE PH</title>
+    <title>AyeAlika</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,6 +17,11 @@
 
     <!-- Google Fonts - Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
 
     <style>
         * {
@@ -35,36 +40,37 @@
         header {
             background-color: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             position: fixed;
             width: 100%;
             z-index: 1000;
-            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.5rem 5%;
+            padding: 1rem 5%;
             max-width: 1400px;
             margin: 0 auto;
+            transition: all 0.3s ease;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .logo {
-            position: relative;
-            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
         }
 
         .logo-text {
-            font-size: 1.6rem;
-            font-weight: 600;
+            font-size: 1.8rem;
+            font-weight: 700;
             background: linear-gradient(135deg, #FF69B4, #8A2BE2);
             -webkit-background-clip: text;
             background-clip: text;
@@ -72,45 +78,32 @@
             letter-spacing: -0.5px;
         }
 
-        .divider {
-            height: 24px;
-            width: 1.5px;
-            background: linear-gradient(to bottom, #FF69B4, #8A2BE2);
-            opacity: 0.3;
-            margin: 0 0.5rem;
-        }
-
-        .brand {
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #666;
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
+        .brand-badge {
             background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(138, 43, 226, 0.1));
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #8A2BE2;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 2.5rem;
             margin: 0;
             padding: 0;
             list-style: none;
         }
 
-        .nav-links li {
-            margin: 0;
-            padding: 0;
-        }
-
         .nav-link {
             position: relative;
             text-decoration: none;
-            color: #555;
+            color: #333;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 1rem;
             padding: 0.5rem 0;
             transition: color 0.3s ease;
         }
@@ -142,54 +135,95 @@
             background: linear-gradient(135deg, #FF69B4, #8A2BE2);
             color: white;
             border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(138, 43, 226, 0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .contact-nav-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
         }
 
-        /* Add smooth transition for header on scroll */
-        .header {
-            transition: all 0.3s ease;
+        /* Mobile Navigation */
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
         }
 
-        .header.scrolled {
-            padding: 0.3rem 0;
-            background-color: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+        .menu-btn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #333;
+            margin: 5px 0;
+            transition: 0.3s ease;
         }
 
-        /* Add responsive styles */
         @media (max-width: 768px) {
-            .nav-links {
-                gap: 1.5rem;
+            .menu-btn {
+                display: block;
             }
 
-            .nav-link {
-                font-size: 0.9rem;
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 80px 2rem;
+                transition: 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                margin: 1rem 0;
+                text-align: center;
             }
 
             .contact-nav-btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .menu-btn.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-btn.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-btn.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .brand-badge {
+                display: none;
             }
         }
 
-        @media (max-width: 640px) {
-            .brand {
-                display: none;
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem 1.5rem;
             }
 
-            .divider {
-                display: none;
+            .logo-text {
+                font-size: 1.5rem;
             }
         }
 
@@ -203,80 +237,185 @@
 
         .hero {
             position: relative;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/hero-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 105, 180, 0.95),
+                rgba(138, 43, 226, 0.95)
+            );
             margin-top: -55px;
+            padding-top: 100px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('img/alex.jpg') center/cover;
+            opacity: 0.1;
+            z-index: 1;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            color: white;
-            max-width: 800px;
-            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 2rem 5%;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-text {
+            text-align: left;
         }
 
         .hero-title {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ff69b4, #8a2be2);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleFade 1s ease-in;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            position: relative;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 80px;
+            height: 4px;
+            background: white;
+            border-radius: 2px;
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: subtitleFade 1s ease-in 0.5s forwards;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
-            opacity: 0;
-            animation: buttonsFade 1s ease-in 1s forwards;
-        }
-
-        .primary-btn, .secondary-btn {
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            gap: 1.5rem;
         }
 
         .primary-btn {
-            background: linear-gradient(45deg, #ff69b4, #8a2be2);
-            color: white;
+            background: white;
+            color: #8A2BE2;
             border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .secondary-btn {
             background: transparent;
             color: white;
             border: 2px solid white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .primary-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         .secondary-btn:hover {
-            background: white;
-            color: #8a2be2;
+            background: rgba(255, 255, 255, 0.1);
             transform: translateY(-3px);
+        }
+
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .hero-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                transform: none;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                margin: 0 1rem;
+                padding: 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .primary-btn, .secondary-btn {
+                width: 100%;
+            }
         }
 
         h2 {
@@ -303,99 +442,148 @@
         }
 
         .product-card {
-            background-color: #fff;
-            border-radius: 10px;
+            background: white;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            height: 100%;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.2);
         }
 
-        .product-card img {
+        .product-image {
+            position: relative;
+            padding-top: 100%;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-        }
-
-        .product-card h3 {
-            font-size: 1rem;
-            margin: 1rem 1rem 0.5rem;
-        }
-
-        .product-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0 1rem 1rem;
-            flex-grow: 1;
-        }
-
-        .product-info p {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #ff6b6b;
-            margin: 0;
-        }
-
-        .product-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .view-button {
-            background-color: #ff6b6b;
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .view-button:hover {
-            background-color: #ff5252;
-        }
-
-        .add-to-cart-button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: transform 0.3s ease;
         }
 
-        .add-to-cart-button:hover {
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 1rem;
+        }
+
+        .product-overlay .product-btn {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+            border-radius: 50px;
+            background: white;
+            color: #8A2BE2;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: auto; /* Remove fixed width */
+            flex: initial; /* Remove flex grow */
+        }
+
+        .product-overlay .product-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-overlay button {
+            min-width: 120px; /* Set minimum width */
+            max-width: 80%; /* Prevent button from being too wide */
+        }
+
+        .product-card:hover .product-image img {
             transform: scale(1.1);
         }
 
-        .add-to-cart-button svg {
-            width: 24px;
-            height: 24px;
-            fill: #ff6b6b;
+        .product-card:hover .product-overlay {
+            opacity: 1;
         }
 
-        @media (max-width: 768px) {
-            .product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
+        .product-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex-grow: 1;
         }
 
-        @media (max-width: 480px) {
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
+        .product-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FF69B4;
+            margin: 0;
+        }
+
+        .product-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .product-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .product-btn.primary {
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.2);
+        }
+
+        .product-btn.secondary {
+            background: transparent;
+            color: #8A2BE2;
+            border: 2px solid #8A2BE2;
+        }
+
+        .product-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .product-btn.primary:hover {
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.3);
+        }
+
+        .product-btn.secondary:hover {
+            background: rgba(138, 43, 226, 0.05);
         }
 
         .buy-button {
@@ -450,10 +638,159 @@
         }
 
         footer {
-            background-color: #333;
-            color: #fff;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: white;
+            padding: 5rem 5% 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(255, 105, 180, 0.3),
+                rgba(138, 43, 226, 0.3),
+                transparent
+            );
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .footer-links h4,
+        .footer-social h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: #FF69B4;
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            transform: translateY(-3px);
+        }
+
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .footer-bottom {
+            margin-top: 4rem;
+            padding-top: 2rem;
             text-align: center;
-            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        @media (max-width: 968px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+                text-align: center;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer {
+                padding: 4rem 5% 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .footer-links ul {
+                align-items: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
         }
 
         .seller {
@@ -1157,61 +1494,6 @@
             }
         }
 
-        /* Footer Styles */
-        .footer {
-            background: linear-gradient(to right, #1a1a1a, #2d2d2d);
-            color: white;
-            padding: 4rem 0 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-brand h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ff69b4, #8a2be2);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .footer-links ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-links li {
-            margin: 0;
-            padding: 0;
-        }
-
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: inline-block;
-            padding: 0.5rem 0;
-        }
-
-        .footer-links a:hover {
-            color: #ff69b4;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         /* Popup Styles */
         .popup-overlay {
             position: fixed;
@@ -1219,139 +1501,141 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: fadeIn 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
         }
 
         .popup-content {
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
             width: 90%;
-            max-width: 500px;
+            max-width: 450px;
+            border-radius: 24px;
+            padding: 2.5rem;
             position: relative;
-            animation: slideUp 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.3s ease 0.1s forwards;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
-        .close-popup {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-            transition: color 0.3s ease;
-        }
-
-        .close-popup:hover {
-            color: #ff69b4;
+        .popup-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
         }
 
         .contact-options {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            margin-top: 1.5rem;
         }
 
-        /* Product Section Styles */
-        .products-section {
-            padding: 5rem 10%;
-            background: linear-gradient(to bottom, #fff, #f9f9f9);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .contact-option {
+            background: rgba(255, 105, 180, 0.05);
+            border-radius: 16px;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             transition: all 0.3s ease;
         }
 
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        .contact-option:hover {
+            background: rgba(138, 43, 226, 0.08);
+            transform: translateY(-2px);
         }
 
-        .product-image {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .product-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+        .contact-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            border-radius: 12px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        .product-card:hover .product-image img {
-            transform: scale(1.1);
+        .contact-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
         }
 
-        .product-card:hover .product-overlay {
-            opacity: 1;
+        .contact-info {
+            flex-grow: 1;
         }
 
-        .view-details {
-            background: white;
+        .contact-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.2rem 0;
             color: #333;
+        }
+
+        .contact-info p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .contact-action {
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            color: white;
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            transform: translateY(20px);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .contact-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .product-card:hover .view-details {
-            transform: translateY(0);
+        .close-popup:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: rotate(90deg);
         }
 
-        .product-content {
-            padding: 1.5rem;
+        .close-popup svg {
+            width: 16px;
+            height: 16px;
+            fill: #666;
         }
 
-        .product-content h3 {
-            margin: 0;
-            font-size: 1.2rem;
-            color: #333;
-        }
-
-        .price {
-            color: #ff69b4;
-            font-weight: 600;
-            margin-top: 0.5rem;
-        }
-
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -1365,6 +1649,23 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .popup-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .contact-option {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .contact-action {
+                width: 100%;
+                margin-top: 0.5rem;
             }
         }
 
@@ -1498,7 +1799,7 @@
         }
 
         .content-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -1507,14 +1808,22 @@
 
         .content-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .video-wrapper {
             position: relative;
-            width: 100%;
+            padding-top: 177.78%;
             background: #000;
             overflow: hidden;
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Portrait video styling */
@@ -1531,40 +1840,12 @@
             object-fit: cover;
         }
 
-        .content-info {
-            padding: 1.5rem;
-        }
-
-        .content-info h3 {
-            font-size: 1.3rem;
-            color: #333;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #ff69b4, #8a2be2);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .content-info p {
-            color: #666;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Custom video controls styling */
-        video::-webkit-media-controls-panel {
-            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
-        }
-
-        video::-webkit-media-controls-play-button {
-            background-color: rgba(255,255,255,0.8);
-            border-radius: 50%;
-        }
-
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .content-grid {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                padding: 0 1rem;
             }
         }
 
@@ -1579,30 +1860,710 @@
             }
         }
 
-        /* Loading state */
-        .video-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top-color: #ff69b4;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes spin {
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
         /* Hover effect for videos */
         .video-wrapper:hover video {
             transform: scale(1.02);
             transition: transform 0.3s ease;
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.5rem 4%;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 80px 2rem;
+                transition: 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                margin: 1rem 0;
+                text-align: center;
+            }
+
+            .contact-nav-btn {
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            /* Hamburger Menu */
+            .menu-btn {
+                display: block;
+                position: relative;
+                z-index: 1001;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0.5rem;
+            }
+
+            .menu-btn span {
+                display: block;
+                width: 25px;
+                height: 2px;
+                background: #333;
+                margin: 5px 0;
+                transition: 0.3s ease;
+            }
+
+            .menu-btn.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-btn.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-btn.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        }
+
+        /* Hero Section Responsive */
+        @media (max-width: 576px) {
+            .hero-content {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .primary-btn, .secondary-btn {
+                width: 100%;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .hero-image {
+                max-height: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Content Section Responsive */
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .video-wrapper.portrait {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Product Section Responsive */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .product-card {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+
+            .product-content {
+                padding: 1.2rem;
+            }
+
+            .product-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .product-details-popup {
+                margin: 1rem;
+                max-height: 90vh;
+            }
+
+            .product-details {
+                flex-direction: column;
+            }
+
+            .product-details-image {
+                max-height: 300px;
+            }
+        }
+
+        /* Seller Section Responsive */
+        @media (max-width: 768px) {
+            .seller {
+                padding: 3rem 5%;
+            }
+
+            .seller-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .seller-image-wrapper {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .seller-description {
+                text-align: center;
+            }
+
+            .seller-social {
+                justify-content: center;
+            }
+        }
+
+        /* Contact Popup Responsive */
+        @media (max-width: 576px) {
+            .popup-content {
+                width: 90%;
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .product-details-popup {
+                width: 95%;
+                max-height: 90vh;
+                margin: 1rem;
+            }
+
+            .product-details {
+                flex-direction: column;
+            }
+
+            .product-details-image {
+                max-height: 250px;
+            }
+
+            .product-details-content {
+                padding: 1.2rem;
+            }
+
+            .contact-option {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.2rem;
+            }
+
+            .contact-action {
+                width: 100%;
+                margin-top: 1rem;
+            }
+        }
+
+        /* General Mobile Improvements */
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .seller {
+                padding: 2rem 1.5rem;
+            }
+
+            .seller-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .seller-image-wrapper {
+                width: 100%;
+            }
+        }
+
+        /* Update/add these styles in your <style> tag */
+
+        /* Product Section Base Styles */
+        .products-section {
+            padding: 5rem 5%;
+            background-color: #f9f9f9;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding: 0 1rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-image {
+            position: relative;
+            padding-top: 100%;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FF69B4;
+            margin-bottom: 1rem;
+        }
+
+        .product-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .product-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-btn.primary {
+            background: linear-gradient(135deg, #FF69B4, #8A2BE2);
+            color: white;
+            border: none;
+        }
+
+        .product-btn.secondary {
+            background: transparent;
+            color: #8A2BE2;
+            border: 2px solid #8A2BE2;
+        }
+
+        /* Product Details Popup Styles */
+        .product-details-popup {
+            width: 90%;
+            max-width: 900px;
+            margin: 2rem;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .product-details {
+            display: flex;
+            max-height: 80vh;
+        }
+
+        .product-details-image {
+            flex: 1;
+            max-width: 50%;
+        }
+
+        .product-details-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-section {
+                padding: 3rem 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 1.2rem;
+                padding: 0;
+            }
+
+            .product-card {
+                max-width: 100%;
+            }
+
+            .product-content {
+                padding: 1.2rem;
+            }
+
+            .product-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .product-btn {
+                width: 100%;
+                padding: 0.7rem;
+            }
+
+            /* Product Details Popup Mobile Styles */
+            .product-details-popup {
+                width: 95%;
+                margin: 1rem;
+                max-height: 90vh;
+            }
+
+            .product-details {
+                flex-direction: column;
+            }
+
+            .product-details-image {
+                max-width: 100%;
+                height: 250px;
+            }
+
+            .product-details-content {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-section {
+                padding: 2rem 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .product-card {
+                margin: 0 auto;
+            }
+
+            .product-content h3 {
+                font-size: 1.1rem;
+            }
+
+            .product-price {
+                font-size: 1rem;
+            }
+
+            .product-btn {
+                font-size: 0.85rem;
+                padding: 0.6rem;
+            }
+        }
+
+        /* Update these styles in your <style> tag */
+
+        /* Hero Section Mobile Fixes */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .hero-image {
+                max-height: 300px;
+            }
+
+            .hero-image img {
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        /* Product Section Mobile Fixes */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-image {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* 1:1 Aspect ratio */
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        @media (max-width: 768px) {
+            .products-section {
+                padding: 3rem 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .product-card {
+                max-width: 100%;
+            }
+
+            .product-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .product-card {
+                margin: 0 auto;
+                width: 100%;
+            }
+        }
+
+        /* Content Section Mobile Fixes */
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 3rem 1rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .content-card {
+                width: 100%;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+
+            .video-wrapper.portrait {
+                width: 100%;
+            }
+        }
+
+        /* Footer Mobile Fixes */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem 1rem;
+            }
+
+            .footer-brand, 
+            .footer-links {
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            .footer-links ul {
+                align-items: center;
+            }
+        }
+
+        /* Navigation Mobile Fixes */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 80px 2rem;
+                transition: 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                margin: 1rem 0;
+            }
+
+            .contact-nav-btn {
+                width: 100%;
+            }
+        }
+
+        /* Popup Mobile Fixes */
+        @media (max-width: 768px) {
+            .popup-content {
+                width: 90%;
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .product-details-popup {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .product-details {
+                flex-direction: column;
+            }
+
+            .product-details-image {
+                max-width: 100%;
+                height: 250px;
+            }
+
+            .contact-option {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            .contact-action {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* General Spacing Fixes */
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -1622,7 +2583,7 @@
         function InstagramIcon() {
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.947-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.059 1.689.072 4.948.072 3.259 0 3.668-.014 4.947-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                 </svg>
             );
         }
@@ -1654,7 +2615,7 @@
                         <img src={product.image} alt={product.title} />
                         <div className="product-overlay">
                             <button 
-                                className="view-details"
+                                className="product-btn primary"
                                 onClick={() => onViewDetails(product)}
                             >
                                 View Details
@@ -1663,7 +2624,23 @@
                     </div>
                     <div className="product-content">
                         <h3>{product.title}</h3>
-                        <p className="price">{product.price}</p>
+                        <p className="product-price">{product.price}</p>
+                        <div className="product-buttons">
+                            <a 
+                                href="https://wa.me/yourphonenumber" 
+                                className="product-btn primary"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Order Now
+                            </a>
+                            <button 
+                                className="product-btn secondary"
+                                onClick={() => onViewDetails(product)}
+                            >
+                                Details
+                            </button>
+                        </div>
                     </div>
                 </div>
             );
@@ -1674,37 +2651,58 @@
             if (!show) return null;
             
             return (
-                <div className="popup-overlay">
-                    <div className="popup-content">
-                        <button className="close-popup" onClick={onClose}>&times;</button>
-                        <h3>Contact Alika</h3>
+                <div className="popup-overlay" onClick={onClose}>
+                    <div className="popup-content" onClick={e => e.stopPropagation()}>
+                        <button className="close-popup" onClick={onClose}>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                        </button>
+                        <h3>Get in Touch</h3>
                         <div className="contact-options">
                             <div className="contact-option">
                                 <div className="contact-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <svg viewBox="0 0 24 24">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
                                     </svg>
                                 </div>
-                                <p>WhatsApp</p>
-                                <a href="https://wa.me/yourphonenumber" className="contact-btn">Chat Now</a>
+                                <div className="contact-info">
+                                    <h4>WhatsApp</h4>
+                                    <p>Chat with us directly</p>
+                                </div>
+                                <a href="https://wa.me/yourphonenumber" className="contact-action" target="_blank">
+                                    Message
+                                </a>
                             </div>
+                            
                             <div className="contact-option">
                                 <div className="contact-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <svg viewBox="0 0 24 24">
                                         <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
                                     </svg>
                                 </div>
-                                <p>Messenger</p>
-                                <a href="https://m.me/yourusername" className="contact-btn">Message</a>
+                                <div className="contact-info">
+                                    <h4>Messenger</h4>
+                                    <p>Connect via Facebook</p>
+                                </div>
+                                <a href="https://m.me/yourusername" className="contact-action" target="_blank">
+                                    Chat
+                                </a>
                             </div>
+                            
                             <div className="contact-option">
                                 <div className="contact-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <svg viewBox="0 0 24 24">
                                         <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                                     </svg>
                                 </div>
-                                <p>Email</p>
-                                <a href="mailto:your@email.com" className="contact-btn">Send Email</a>
+                                <div className="contact-info">
+                                    <h4>Email</h4>
+                                    <p>Send us an email</p>
+                                </div>
+                                <a href="mailto:your@email.com" className="contact-action">
+                                    Email
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1832,10 +2830,6 @@
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
-                                <div className="content-info">
-                                    <h3>{content.title}</h3>
-                                    <p>{content.description}</p>
-                                </div>
                             </div>
                         ))}
                     </div>
@@ -1847,6 +2841,7 @@
         function App() {
             const [showContactPopup, setShowContactPopup] = React.useState(false);
             const [isScrolled, setIsScrolled] = React.useState(false);
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
             React.useEffect(() => {
                 const handleScroll = () => {
@@ -1856,27 +2851,43 @@
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
+            // Add this to your App component, just before the return statement
+            const toggleMobileMenu = () => {
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+            };
+
             return (
                 <div className="app-container">
                     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
                         <nav>
                             <div className="logo-container">
-                                <div className="logo">
+                                <a href="#" className="logo">
                                     <span className="logo-text">AyeAlika</span>
-                                    <div className="logo-underline"></div>
-                                </div>
-                                <div className="divider"></div>
-                                <div className="brand">TRIZIE PH</div>
+                                </a>
+                                <span className="brand-badge">TRIZIE PH</span>
                             </div>
-                            <ul className="nav-links">
-                                <li><a href="#home" className="nav-link">Home</a></li>
-                                <li><a href="#about" className="nav-link">About</a></li>
-                                <li><a href="#products" className="nav-link">Products</a></li>
-                                <li><a href="#services" className="nav-link">Services</a></li>
+                            
+                            <button 
+                                className={`menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
+                                onClick={toggleMobileMenu}
+                            >
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                            
+                            <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
+                                <li><a href="#home" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</a></li>
+                                <li><a href="#products" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Products</a></li>
+                                <li><a href="#contents" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contents</a></li>
+                                <li><a href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</a></li>
                                 <li>
                                     <button 
                                         className="contact-nav-btn"
-                                        onClick={() => setShowContactPopup(true)}
+                                        onClick={() => {
+                                            setShowContactPopup(true);
+                                            setIsMobileMenuOpen(false);
+                                        }}
                                     >
                                         Contact
                                     </button>
@@ -1888,15 +2899,20 @@
                     <main>
                         <section id="hero" className="hero">
                             <div className="hero-content">
-                                <h1 className="hero-title">Welcome to AyeAlika</h1>
-                                <p className="hero-subtitle">Your Trusted TRIZIE PH Brand Ambassador</p>
-                                <div className="hero-buttons">
-                                    <button className="primary-btn" onClick={() => setShowContactPopup(true)}>
-                                        Get in Touch
-                                    </button>
-                                    <a href="#products" className="secondary-btn">
-                                        View Products
-                                    </a>
+                                <div className="hero-text">
+                                    <h1 className="hero-title">Welcome to AyeAlika</h1>
+                                    <p className="hero-subtitle">Your trusted TRIZIE brand ambassador, helping you achieve your wellness goals with premium health products and personalized guidance.</p>
+                                    <div className="hero-buttons">
+                                        <button className="primary-btn" onClick={() => setShowContactPopup(true)}>
+                                            Get in Touch
+                                        </button>
+                                        <a href="#products" className="secondary-btn">
+                                            View Products
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="hero-image">
+                                    <img src="img/alex.jpg" alt="AyeAlika - TRIZIE Brand Ambassador" />
                                 </div>
                             </div>
                         </section>
@@ -1904,30 +2920,6 @@
                         <ContentSection />
 
                         <ProductSection />
-
-                        <section id="seller" className="seller">
-                            <div className="seller-content">
-                                <div className="seller-image-wrapper">
-                                    <img src="img/alex.jpg" alt="Alika - Brand Affiliate" className="seller-image" />
-                                </div>
-                                <div className="seller-description">
-                                    <h2 className="section-title">Brand Ambassador Alika</h2>
-                                    <p className="seller-text">
-                                        Alika is a passionate brand affiliate for TRIZIE PH, specializing in lifestyle and wellness products. With her keen eye for quality and commitment to holistic well-being, Alika creates engaging product content that resonates with health-conscious individuals.
-                                    </p>
-                                    <div className="seller-social">
-                                        <button className="contact-btn pulse" onClick={() => setShowContactPopup(true)}>
-                                            Contact Alika
-                                        </button>
-                                        <div className="social-links">
-                                            <SocialIcon href="https://facebook.com" icon="facebook" />
-                                            <SocialIcon href="https://instagram.com" icon="instagram" />
-                                            <SocialIcon href="https://tiktok.com" icon="tiktok" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
                     </main>
 
                     <ContactPopup 
@@ -1939,28 +2931,36 @@
                         <div className="footer-content">
                             <div className="footer-brand">
                                 <h3>AyeAlika</h3>
-                                <p>Your Wellness Journey Starts Here</p>
-                            </div>
-                            <div className="footer-links">
-                                <h4>Quick Links</h4>
-                                <ul>
-                                    <li><a href="#home">Home</a></li>
-                                    <li><a href="#about">About</a></li>
-                                    <li><a href="#products">Products</a></li>
-                                    <li><a href="#services">Services</a></li>
-                                </ul>
-                            </div>
-                            <div className="footer-social">
-                                <h4>Connect With Us</h4>
+                                <p>Your trusted TRIZIE brand ambassador, dedicated to helping you achieve your wellness goals through premium health products and personalized guidance.</p>
                                 <div className="social-icons">
                                     <SocialIcon href="https://facebook.com" icon="facebook" />
                                     <SocialIcon href="https://instagram.com" icon="instagram" />
                                     <SocialIcon href="https://tiktok.com" icon="tiktok" />
                                 </div>
                             </div>
+                            
+                            <div className="footer-links">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="#home">Home</a></li>
+                                    <li><a href="#products">Products</a></li>
+                                    <li><a href="#contents">Contents</a></li>
+                                    <li><a href="#about">About</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div className="footer-links">
+                                <h4>Contact</h4>
+                                <ul>
+                                    <li><a href="https://wa.me/yourphonenumber">WhatsApp</a></li>
+                                    <li><a href="https://m.me/yourusername">Messenger</a></li>
+                                    <li><a href="mailto:your@email.com">Email</a></li>
+                                </ul>
+                            </div>
                         </div>
+                        
                         <div className="footer-bottom">
-                            <p>&copy; 2024 AyeAlika. All rights reserved.</p>
+                            <p>&copy; {new Date().getFullYear()} AyeAlika. All rights reserved.</p>
                         </div>
                     </footer>
                 </div>
