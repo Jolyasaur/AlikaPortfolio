@@ -292,17 +292,6 @@
             position: relative;
         }
 
-        .hero-title::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -10px;
-            width: 80px;
-            height: 4px;
-            background: white;
-            border-radius: 2px;
-        }
-
         .hero-subtitle {
             font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.9);
@@ -315,12 +304,6 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            transform: perspective(1000px) rotateY(-5deg);
-            transition: transform 0.5s ease;
-        }
-
-        .hero-image:hover {
-            transform: perspective(1000px) rotateY(0deg);
         }
 
         .hero-image img {
@@ -331,7 +314,8 @@
 
         .hero-buttons {
             display: flex;
-            gap: 1.5rem;
+            align-items: center;
+            gap: 1rem;
         }
 
         .primary-btn {
@@ -344,6 +328,7 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-decoration: none; /* Add this line to remove the underline */
         }
 
         .secondary-btn {
@@ -355,7 +340,7 @@
             font-weight: 600;
             font-size: 1rem;
             transition: all 0.3s ease;
-            text-decoration: none;
+            text-decoration: none; /* Add this line to remove the underline */
         }
 
         .primary-btn:hover {
@@ -379,17 +364,11 @@
                 font-size: 2.8rem;
             }
 
-            .hero-title::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
             .hero-buttons {
                 justify-content: center;
             }
 
             .hero-image {
-                transform: none;
                 max-width: 500px;
                 margin: 0 auto;
             }
@@ -1860,12 +1839,6 @@
             }
         }
 
-        /* Hover effect for videos */
-        .video-wrapper:hover video {
-            transform: scale(1.02);
-            transition: transform 0.3s ease;
-        }
-
         /* Mobile Navigation */
         @media (max-width: 768px) {
             nav {
@@ -2340,11 +2313,6 @@
                 font-size: 2.2rem;
             }
 
-            .hero-title::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
             .hero-subtitle {
                 font-size: 1rem;
             }
@@ -2565,6 +2533,57 @@
                 margin-bottom: 1.5rem;
             }
         }
+
+        /* Add these styles in the <style> section */
+        .tiktok-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            color: white;
+            border: none;
+            padding: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .tiktok-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .tiktok-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background: #333;
+        }
+
+        @media (max-width: 576px) {
+            .hero-buttons {
+                flex-direction: row;
+                gap: 1rem;
+                width: 100%;
+                align-items: center;
+                justify-content: flex-start;
+            }
+
+            .primary-btn {
+                flex: 1;
+                height: 48px; /* Match height with tiktok button */
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .tiktok-btn {
+                flex: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2608,103 +2627,14 @@
         }
 
         // Product Card Component
-        function ProductCard({ product, onViewDetails }) {
+        function ProductCard({ product }) {
             return (
                 <div className="product-card">
                     <div className="product-image">
                         <img src={product.image} alt={product.title} />
-                        <div className="product-overlay">
-                            <button 
-                                className="product-btn primary"
-                                onClick={() => onViewDetails(product)}
-                            >
-                                View Details
-                            </button>
-                        </div>
                     </div>
                     <div className="product-content">
                         <h3>{product.title}</h3>
-                        <p className="product-price">{product.price}</p>
-                        <div className="product-buttons">
-                            <a 
-                                href="https://wa.me/yourphonenumber" 
-                                className="product-btn primary"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Order Now
-                            </a>
-                            <button 
-                                className="product-btn secondary"
-                                onClick={() => onViewDetails(product)}
-                            >
-                                Details
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        // Contact Popup Component
-        function ContactPopup({ show, onClose }) {
-            if (!show) return null;
-            
-            return (
-                <div className="popup-overlay" onClick={onClose}>
-                    <div className="popup-content" onClick={e => e.stopPropagation()}>
-                        <button className="close-popup" onClick={onClose}>
-                            <svg viewBox="0 0 24 24">
-                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                            </svg>
-                        </button>
-                        <h3>Get in Touch</h3>
-                        <div className="contact-options">
-                            <div className="contact-option">
-                                <div className="contact-icon">
-                                    <svg viewBox="0 0 24 24">
-                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
-                                    </svg>
-                                </div>
-                                <div className="contact-info">
-                                    <h4>WhatsApp</h4>
-                                    <p>Chat with us directly</p>
-                                </div>
-                                <a href="https://wa.me/yourphonenumber" className="contact-action" target="_blank">
-                                    Message
-                                </a>
-                            </div>
-                            
-                            <div className="contact-option">
-                                <div className="contact-icon">
-                                    <svg viewBox="0 0 24 24">
-                                        <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/>
-                                    </svg>
-                                </div>
-                                <div className="contact-info">
-                                    <h4>Messenger</h4>
-                                    <p>Connect via Facebook</p>
-                                </div>
-                                <a href="https://m.me/yourusername" className="contact-action" target="_blank">
-                                    Chat
-                                </a>
-                            </div>
-                            
-                            <div className="contact-option">
-                                <div className="contact-icon">
-                                    <svg viewBox="0 0 24 24">
-                                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                                    </svg>
-                                </div>
-                                <div className="contact-info">
-                                    <h4>Email</h4>
-                                    <p>Send us an email</p>
-                                </div>
-                                <a href="mailto:your@email.com" className="contact-action">
-                                    Email
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             );
@@ -2749,29 +2679,46 @@
 
         // Product Section Component
         function ProductSection() {
-            const [selectedProduct, setSelectedProduct] = React.useState(null);
-            
             const products = [
                 {
                     id: 1,
                     title: "Clean Fiber",
-                    price: "From ₱695.00",
-                    image: "img/cleanfiber.png",
-                    description: "Clean Fiber is a revolutionary dietary supplement designed to support digestive health and maintain regular bowel movements. Made with natural ingredients, it helps promote a healthy gut while being gentle on your system. Perfect for those looking to improve their daily fiber intake in a convenient and effective way."
+                    image: "img/cleanfiber.png"
                 },
                 {
                     id: 2,
                     title: "Grape Fiber",
-                    price: "From ₱695.00",
-                    image: "img/grapefiber.jpg",
-                    description: "Grape Fiber combines the goodness of dietary fiber with the delicious taste of grapes. This unique formula not only supports digestive health but also provides antioxidants from grape extracts. Enjoy the benefits of fiber supplementation with a pleasant grape flavor that makes your daily routine more enjoyable."
+                    image: "img/grapefiber.jpg"
                 },
                 {
                     id: 3,
                     title: "TRIZIE Peachy Fiber",
-                    price: "₱595.00",
-                    image: "img/peachyfiber.jpg",
-                    description: "TRIZIE Peachy Fiber offers a delightful peach-flavored approach to fiber supplementation. This specially formulated product helps maintain digestive regularity while being a treat for your taste buds. The perfect choice for those who want their daily fiber supplement to be both effective and enjoyable."
+                    image: "img/peachyfiber.jpg"
+                },
+                {
+                    id: 4,
+                    title: "Light Fiber",
+                    image: "img/lightfiber.jpg"
+                },
+                {
+                    id: 5,
+                    title: "Shaker",
+                    image: "img/shaker.jpg"
+                },
+                {
+                    id: 6,
+                    title: "Collagen Plus",
+                    image: "img/collagenplus.jpg"
+                },
+                {
+                    id: 7,
+                    title: "Bloom Jelly",
+                    image: "img/bloomjelly.jpg"
+                },
+                {
+                    id: 8,
+                    title: "Complete Jelly",
+                    image: "img/completejelly20sachet.jpg"
                 }
             ];
 
@@ -2783,14 +2730,9 @@
                             <ProductCard 
                                 key={product.id} 
                                 product={product}
-                                onViewDetails={setSelectedProduct}
                             />
                         ))}
                     </div>
-                    <ProductDetailsPopup 
-                        product={selectedProduct}
-                        onClose={() => setSelectedProduct(null)}
-                    />
                 </section>
             );
         }
@@ -2809,6 +2751,78 @@
                 {
                     id: 3,
                     video: "vid/vid3.mp4"
+                },
+                {
+                    id: 4,
+                    video: "vid/vid4.mp4"
+                },
+                {
+                    id: 5,
+                    video: "vid/vid5.mp4"
+                },
+                {
+                    id: 6,
+                    video: "vid/vid6.mp4"
+                },
+                {
+                    id: 7,
+                    video: "vid/vid7.mp4"
+                },
+                {
+                    id: 8,
+                    video: "vid/vid8.mp4"
+                },
+                {
+                    id: 9,
+                    video: "vid/vid9.mp4"
+                },
+                {
+                    id: 10,
+                    video: "vid/vid10.mp4"
+                },
+                {
+                    id: 11,
+                    video: "vid/vid11.mp4"
+                },
+                {
+                    id: 12,
+                    video: "vid/vid12.mp4"
+                },
+                {
+                    id: 13,
+                    video: "vid/vid13.mp4"
+                },
+                {
+                    id: 14,
+                    video: "vid/vid14.mp4"
+                },
+                {
+                    id: 15,
+                    video: "vid/vid15.mp4"
+                },
+                {
+                    id: 16,
+                    video: "vid/vid16.mp4"
+                },
+                {
+                    id: 17,
+                    video: "vid/vid17.mp4"
+                },
+                {
+                    id: 18,
+                    video: "vid/vid18.mp4"
+                },
+                {
+                    id: 19,
+                    video: "vid/vid19.mp4"
+                },
+                {
+                    id: 20,
+                    video: "vid/vid20.mp4"
+                },
+                {
+                    id: 21,
+                    video: "vid/vid21.mp4"
                 }
             ];
 
@@ -2839,7 +2853,6 @@
 
         // Main App Component
         function App() {
-            const [showContactPopup, setShowContactPopup] = React.useState(false);
             const [isScrolled, setIsScrolled] = React.useState(false);
             const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
@@ -2881,17 +2894,6 @@
                                 <li><a href="#products" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Products</a></li>
                                 <li><a href="#contents" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contents</a></li>
                                 <li><a href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</a></li>
-                                <li>
-                                    <button 
-                                        className="contact-nav-btn"
-                                        onClick={() => {
-                                            setShowContactPopup(true);
-                                            setIsMobileMenuOpen(false);
-                                        }}
-                                    >
-                                        Contact
-                                    </button>
-                                </li>
                             </ul>
                         </nav>
                     </header>
@@ -2903,11 +2905,14 @@
                                     <h1 className="hero-title">Welcome to AyeAlika</h1>
                                     <p className="hero-subtitle">Your trusted TRIZIE brand ambassador, helping you achieve your wellness goals with premium health products and personalized guidance.</p>
                                     <div className="hero-buttons">
-                                        <button className="primary-btn" onClick={() => setShowContactPopup(true)}>
-                                            Get in Touch
-                                        </button>
-                                        <a href="#products" className="secondary-btn">
+                                        <a href="#products" className="primary-btn">
                                             View Products
+                                        </a>
+                                        <a href="https://www.tiktok.com/@trizieph" 
+                                           target="_blank" 
+                                           rel="noopener noreferrer" 
+                                           className="tiktok-btn">
+                                            <TiktokIcon />
                                         </a>
                                     </div>
                                 </div>
@@ -2917,15 +2922,10 @@
                             </div>
                         </section>
 
-                        <ContentSection />
-
                         <ProductSection />
+                        
+                        <ContentSection />
                     </main>
-
-                    <ContactPopup 
-                        show={showContactPopup} 
-                        onClose={() => setShowContactPopup(false)} 
-                    />
 
                     <footer className="footer">
                         <div className="footer-content">
@@ -2935,7 +2935,7 @@
                                 <div className="social-icons">
                                     <SocialIcon href="https://facebook.com" icon="facebook" />
                                     <SocialIcon href="https://instagram.com" icon="instagram" />
-                                    <SocialIcon href="https://tiktok.com" icon="tiktok" />
+                                    <SocialIcon href="https://www.tiktok.com/@trizieph" icon="tiktok" />
                                 </div>
                             </div>
                             
